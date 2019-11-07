@@ -1,0 +1,8 @@
+Slide 1: Tiêu đề
+2: Thành viên nhóm kèm hình ảnh
+3: Thông tin về dữ liệu, ... bao nhiêu cột thuộc tính
+4: Thống kê biểu đồ
+5: Sơ lược về giải thuật: Cây quyết định, hồi quy tuyến tính.
+6: Nghi thức đánh giá
+7: So sánh giải thuật
+8: Cảm ơn
