@@ -7,6 +7,21 @@ dt_hour.info()
 #X=dt_hour.iloc[:,[8,9,10,11,12,13,14]]
 X = dt_hour.iloc[:,10:16]#16
 Y = dt_hour.cnt
+
+#bieu do hinh tron
+import matplotlib.pyplot as plt
+tongsoxe = sum(dt_hour.cnt)
+xedk = sum(dt_hour.registered)
+xenodk = sum(dt_hour.casual)
+label = ["Xe đã dk", "Xe chưa dk"]
+market = [xedk,xenodk]
+colors = ['yellow','red']
+Explode = [0.1,0]#khoang cach
+plt.pie(market,explode=Explode, labels=label,shadow=True,startangle=45,autopct='%1.1f%%', colors=colors)
+plt.axis('equal')
+plt.legend(title="Biểu đồ xe")
+plt.show()
+
 #in cnt month =1 https://kipalog.com/posts/Huong-dan-su-dung-thu-vien-pandas-trong-python
 nodk1 = sum(dt_hour[dt_hour['mnth']==1][['mnth','casual']].casual)#người thuê xe tháng 1 chưa đăng kí
 nodk2 = sum(dt_hour[dt_hour['mnth']==2][['mnth','casual']].casual)#người thuê xe tháng 2 chưa đăng kí
@@ -62,7 +77,7 @@ print("mon1 = ",mon10," tong= ",dk10,"+ ",nodk10," = ", nodk10+dk10)
 print("mon1 = ",mon11," tong= ",dk11,"+ ",nodk11," = ", nodk11+dk11)
 print("mon1 = ",mon12," tong= ",dk12,"+ ",nodk12," = ", nodk12+dk12)
 #https://viblo.asia/p/gioi-thieu-ve-matplotlib-mot-thu-vien-rat-huu-ich-cua-python-dung-de-ve-do-thi-yMnKMN6gZ7P
-import matplotlib.pyplot as plt
+
 #bieu do trong tung thang
 thang = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
 soxe = [mon1,mon2,mon3,mon4,mon5,mon6,mon7,mon8,mon9,mon10,mon11,mon12]
