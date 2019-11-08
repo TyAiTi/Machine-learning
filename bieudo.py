@@ -83,7 +83,27 @@ plt.show()
 
 
 #bieu do ngay trong tuan
+t2nodk = sum(dt_hour[dt_hour['weekday']==1][['weekday','casual']].casual)
+t3nodk = sum(dt_hour[dt_hour['weekday']==2][['weekday','casual']].casual)
+t4nodk = sum(dt_hour[dt_hour['weekday']==3][['weekday','casual']].casual)
+t5nodk = sum(dt_hour[dt_hour['weekday']==4][['weekday','casual']].casual)
+t6nodk = sum(dt_hour[dt_hour['weekday']==5][['weekday','casual']].casual)
+t7nodk = sum(dt_hour[dt_hour['weekday']==6][['weekday','casual']].casual)
+t8nodk = sum(dt_hour[dt_hour['weekday']==0][['weekday','casual']].casual)
+
+t2dk = sum(dt_hour[dt_hour['weekday']==1][['weekday','registered']].registered)
+t3dk = sum(dt_hour[dt_hour['weekday']==2][['weekday','registered']].registered)
+t4dk = sum(dt_hour[dt_hour['weekday']==3][['weekday','registered']].registered)
+t5dk = sum(dt_hour[dt_hour['weekday']==4][['weekday','registered']].registered)
+t6dk = sum(dt_hour[dt_hour['weekday']==5][['weekday','registered']].registered)
+t7dk = sum(dt_hour[dt_hour['weekday']==6][['weekday','registered']].registered)
+t8dk = sum(dt_hour[dt_hour['weekday']==0][['weekday','registered']].registered)
+
+print(t2nodk)
+print(t2dk)
 t2 =sum(dt_hour[dt_hour['weekday']==1][['weekday','cnt']].cnt)
+print(t2)
+
 t3 =sum(dt_hour[dt_hour['weekday']==2][['weekday','cnt']].cnt)
 t4 =sum(dt_hour[dt_hour['weekday']==3][['weekday','cnt']].cnt)
 t5 =sum(dt_hour[dt_hour['weekday']==4][['weekday','cnt']].cnt)
@@ -92,12 +112,58 @@ t7 =sum(dt_hour[dt_hour['weekday']==6][['weekday','cnt']].cnt)
 t8 =sum(dt_hour[dt_hour['weekday']==0][['weekday','cnt']].cnt)
 thu=np.unique(dt_hour.weekday)#[0 1 2 3 4 5 6] cn hai ba tu ...
 
-thang = ["2", "3", "4", "5", "6", "7", "CN"]
-soxe = [t2,t3,t4,t5,t6,t7,t8]
-plt.bar(thang, soxe, color='green')
+print("Thu 2 = ",t2," la tong cua ",t2nodk," + ",t2dk," la: ", t2nodk+t2dk)
+
+
+thu = ["2", "3", "4", "5", "6", "7", "CN"]
+soxet = [t2,t3,t4,t5,t6,t7,t8]
+tnodk = [t2nodk,t3nodk,t4nodk,t5nodk,t6nodk,t7nodk,t8nodk]
+tdk = [t2dk,t3dk,t4dk,t5dk,t6dk,t7dk,t8dk]
+index = np.arange(7)
+width = 0.30
+plt.bar(index,      soxet, width, color='green', label = "Tổng xe")
+plt.bar(index+width,tdk, width, color='yellow', label = "Xe đã dk")
+plt.bar(index+width+0.3,tnodk, width, color='red', label = "Xe chưa dk")
+plt.xticks(index+ width/3, thu)
 plt.title("Số xe đạp thuộc ngày trong tuần") #noi dung bieu do
 plt.xlabel("Thứ")#hang ngang qua
 plt.ylabel("Số xe đạp") #tong so xe dep trong thang
+plt.legend(loc='best')
 plt.show()
 
 #bieu do theo mua xuan ha thu dong
+xuan =sum(dt_hour[dt_hour['season']==1][['season','cnt']].cnt)
+ha =sum(dt_hour[dt_hour['season']==2][['season','cnt']].cnt)
+thu =sum(dt_hour[dt_hour['season']==3][['season','cnt']].cnt)
+dong =sum(dt_hour[dt_hour['season']==4][['season','cnt']].cnt)
+#print(np.unique(dt_hour.season))
+
+mnodk1 =  sum(dt_hour[dt_hour['season']==1][['season','casual']].casual)
+mnodk2 =  sum(dt_hour[dt_hour['season']==2][['season','casual']].casual)
+mnodk3 =  sum(dt_hour[dt_hour['season']==3][['season','casual']].casual)
+mnodk4 =  sum(dt_hour[dt_hour['season']==4][['season','casual']].casual)
+
+mdk1 = sum(dt_hour[dt_hour['season']==1][['season','registered']].registered)
+mdk2 = sum(dt_hour[dt_hour['season']==2][['season','registered']].registered)
+mdk3 = sum(dt_hour[dt_hour['season']==3][['season','registered']].registered)
+mdk4 = sum(dt_hour[dt_hour['season']==4][['season','registered']].registered)
+print(xuan," ", mnodk1," ",mdk1)
+print(ha," ", mnodk2," ",mdk2)
+print(thu," ", mnodk3," ",mdk3)
+print(dong," ", mnodk4," ",mdk4)
+
+mua = ["Xuân", "Hạ", "Thu", "Đông"]
+soxem = [xuan,ha,thu,dong]
+mnodk = [mnodk1,mnodk2,mnodk3,mnodk4]
+mdk = [mdk1,mdk2,mdk3,mdk4]
+index = np.arange(4)
+width = 0.30
+plt.bar(index,      soxem, width, color='green', label = "Tổng xe")
+plt.bar(index+width,mdk, width, color='yellow', label = "Xe đã dk")
+plt.bar(index+width+0.3,mnodk, width, color='red', label = "Xe chưa dk")
+plt.xticks(index+ width/3, mua)
+plt.title("Tổng số xe đạp theo mùa") #noi dung bieu do
+plt.xlabel("Mùa")#hang ngang qua
+plt.ylabel("Số xe đạp") #tong so xe dep trong thang
+plt.legend(loc='best')
+plt.show()
