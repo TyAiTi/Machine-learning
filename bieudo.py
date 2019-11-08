@@ -48,38 +48,39 @@ mon10 =sum(dt_hour[dt_hour['mnth']==10][['mnth','cnt']].cnt) #liet ke thang 10 v
 mon11 =sum(dt_hour[dt_hour['mnth']==11][['mnth','cnt']].cnt) #liet ke thang 11 va cnt
 mon12 =sum(dt_hour[dt_hour['mnth']==12][['mnth','cnt']].cnt) #liet ke thang 12 va cnt
 
-#A = A[['mnth','cnt']]
-#print(sum(A.cnt))
-print(mon1)
-print(mon2)
-print(mon3)
-print(mon4)
-print(mon5)
-print(mon6)
-print(mon7)
-print(mon8)
-print(mon9)
-print(mon10)
-print(mon11)
-print(mon12)
+
+print("mon1 = ",mon1," tong= ",nodk1,"+ ",nodk1," = ", nodk1+dk1)
+print("mon1 = ",mon2," tong= ",dk2,"+ ",nodk2," = ", nodk2+dk2)
+print("mon1 = ",mon3," tong= ",dk3,"+ ",nodk3," = ", nodk3+dk3)
+print("mon1 = ",mon4," tong= ",dk4,"+ ",nodk4," = ", nodk4+dk4)
+print("mon1 = ",mon5," tong= ",dk5,"+ ",nodk5," = ", nodk5+dk5)
+print("mon1 = ",mon6," tong= ",dk6,"+ ",nodk6," = ", nodk6+dk6)
+print("mon1 = ",mon7," tong= ",dk7,"+ ",nodk7," = ", nodk7+dk7)
+print("mon1 = ",mon8," tong= ",dk8,"+ ",nodk8," = ", nodk8+dk8)
+print("mon1 = ",mon9," tong= ",dk9,"+ ",nodk9," = ", nodk9+dk9)
+print("mon1 = ",mon10," tong= ",dk10,"+ ",nodk10," = ", nodk10+dk10)
+print("mon1 = ",mon11," tong= ",dk11,"+ ",nodk11," = ", nodk11+dk11)
+print("mon1 = ",mon12," tong= ",dk12,"+ ",nodk12," = ", nodk12+dk12)
 #https://viblo.asia/p/gioi-thieu-ve-matplotlib-mot-thu-vien-rat-huu-ich-cua-python-dung-de-ve-do-thi-yMnKMN6gZ7P
 import matplotlib.pyplot as plt
 #bieu do trong tung thang
 thang = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
 soxe = [mon1,mon2,mon3,mon4,mon5,mon6,mon7,mon8,mon9,mon10,mon11,mon12]
-nodk = [nodk1,nodk2,nodk3,nodk4,nodk5,nodk6,nodk7,nodk8,nodk9,nodk10,nodk11,nodk12]
 dk = [dk1,dk2,dk3,dk4,dk5,dk6,dk7,dk8,dk9,dk10,dk11,dk12]
+nodk = [nodk1,nodk2,nodk3,nodk4,nodk5,nodk6,nodk7,nodk8,nodk9,nodk10,nodk11,nodk12]
+
 index = np.arange(12)
 width = 0.30
-plt.bar(index,soxe, width, color='green', label = "Tổng xe")
-plt.bar(index+width,nodk, width, color='red', label = "Xe chưa dk")
-plt.bar(index+width+0.30,nodk, width, color='yellow', label = "Xe đã dk")
+plt.bar(index,      soxe, width, color='green', label = "Tổng xe")
+plt.bar(index+width,dk, width, color='yellow', label = "Xe đã dk")
+plt.bar(index+width+0.3,nodk, width, color='red', label = "Xe chưa dk")
 plt.title("Số xe đạp được thuê trong từng tháng") #noi dung bieu do
 plt.xlabel("Tháng")#hang ngang qua
 plt.ylabel("So xe dap") #tong so xe dep trong thang
 plt.xticks(index+ width/3, thang)
 plt.legend(loc='best')
 plt.show()
+
 
 #bieu do ngay trong tuan
 t2 =sum(dt_hour[dt_hour['weekday']==1][['weekday','cnt']].cnt)
