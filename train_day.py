@@ -3,9 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 dt_date = pd.read_csv("day.csv") #đọc file .csv
 #print(dt_date.head(5))
-dt_date = dt_date.drop(columns=['dteday','instant'])# bỏ cột ngày và thứ tự không cần thiết
+#dt_date = dt_date.drop(columns=['dteday','instant','yr','holiday','workingday'])# bỏ cột ngày và thứ tự không cần thiết
 #print(dt_date.head(5))
-
+dt_date = dt_date.drop(columns=['dteday','instant','mnth','holiday','workingday','weathersit'])
 
 from sklearn import preprocessing #sử dụng sklearn
 x=dt_date.drop(['cnt',],axis=1) # x là phải bỏ cột nhãn ra
@@ -47,7 +47,9 @@ plt.grid(True)
 plt.show()
 
 from sklearn.tree import DecisionTreeRegressor #Cay quyet dinh decision tree
-regressor = DecisionTreeRegressor(random_state = 0)
+regressor = DecisionTreeRegressor(max_depth=18,random_state = 0)
+#from sklearn.tree import DecisionTreeClassifier
+#regressor = DecisionTreeClassifier(criterion = "entropy", random_state = 0, max_depth=18,min_samples_leaf=5)
 regressor.fit(x_train, y_train)
 y_predicted_2 = regressor.predict(x_test)
 mse2 = mean_squared_error(y_test, y_predicted_2)
@@ -68,7 +70,7 @@ table.field_names = ["Giai Thuat", "MSE","RMSE" ,"Do chinh xac"]
 
 models = [
     LinearRegression(),
-    DecisionTreeRegressor(random_state = 100)
+    DecisionTreeRegressor(max_depth=18,random_state = 0)
 ]
 
 for model in models:
@@ -76,6 +78,6 @@ for model in models:
     y_res = model.predict(x_test)
     mse_b = mean_squared_error(y_test, y_res)
     score_b = model.score(x_test, y_test)*100
-    rmse_b = np.sqrt(mse)
+    rmse_b = np.sqrt(mse_b)
     table.add_row([type(model).__name__, format(mse_b, '.2f'),format(rmse_b, '.2f'),format(score_b, '.2f')])
 print(table)
