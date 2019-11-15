@@ -14,6 +14,8 @@ from sklearn import preprocessing #sử dụng sklearn
 x=dt_date.drop(['cnt',],axis=1) # x là phải bỏ cột nhãn ra
 #print(x.head(5))
 y=dt_date['cnt'] #là nhãn
+x= np.array(x)
+y = np.array(y)
 #x = preprocessing.normalize(x)# tiền xử lý để chuẩn hóa
 print("------------ ---------------- --------------- \n")
 
@@ -33,6 +35,10 @@ linearRegressor.fit(x_train, y_train) #bat dau train
 print("Giai thuat hoi quy tuyen tinh Linear Regression: ")
 print(linearRegressor)
 y_predicted = linearRegressor.predict(x_test) #du doan
+
+#prediction = linearRegressor.predict(x_test)#vong lap xem thu
+for x in range(10):
+    print("Du doan : ",y_predicted[x], "Thuc te: ",y_test[x])
 mse = mean_squared_error(y_test, y_predicted) # binh phuong sai so
 r = r2_score(y_test, y_predicted) #so diem chua nhan voi 100
 from math import sqrt
@@ -63,6 +69,8 @@ regressor.fit(x_train, y_train)
 print("Giai thuat cay quyet dinh Decision Tree: ")
 print(regressor)
 y_predicted_2 = regressor.predict(x_test)
+for x in range(10):
+    print("Du doan : ",y_predicted_2[x], "Thuc te: ",y_test[x])
 mse2 = mean_squared_error(y_test, y_predicted_2)
 r2 = r2_score(y_test, y_predicted_2)
 
