@@ -1,3 +1,4 @@
+#https://www.youtube.com/watch?v=ic3XgjY2VDY
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -5,7 +6,7 @@ dt_date = pd.read_csv("day.csv") #đọc file .csv
 #print(dt_date.head(5))
 #dt_date = dt_date.drop(columns=['dteday','instant','yr','holiday','workingday'])# bỏ cột ngày và thứ tự không cần thiết
 #print(dt_date.head(5))
-dt_date = dt_date.drop(columns=['dteday','instant','mnth','holiday','workingday','weathersit'])
+dt_date = dt_date.drop(columns=['dteday','instant','holiday','workingday','weathersit','yr'])
 
 from sklearn import preprocessing #sử dụng sklearn
 x=dt_date.drop(['cnt',],axis=1) # x là phải bỏ cột nhãn ra
