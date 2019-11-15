@@ -7,10 +7,11 @@ dt_date = pd.read_csv("day.csv") #đọc file .csv
 #dt_date = dt_date.drop(columns=['dteday','instant','yr','holiday','workingday'])# bỏ cột ngày và thứ tự không cần thiết
 #print(dt_date.head(5))
 dt_date = dt_date.drop(columns=['instant','dteday','season','yr','mnth','holiday','weekday','workingday','weathersit','casual','registered'])
-print(dt_date)
+print("Thuoc tinh va nhan can thiet la: ")
+print(dt_date.head(10))
 from sklearn import preprocessing #sử dụng sklearn
 x=dt_date.drop(['cnt',],axis=1) # x là phải bỏ cột nhãn ra
-print(x.head(5))
+#print(x.head(5))
 y=dt_date['cnt'] #là nhãn
 #x = preprocessing.normalize(x)# tiền xử lý để chuẩn hóa
 print("------------ ---------------- --------------- \n")
@@ -30,13 +31,16 @@ from sklearn.metrics import mean_squared_error #binh phuong sai so loi erro
 from sklearn.metrics import r2_score #diem
 linearRegressor = LinearRegression()
 linearRegressor.fit(x_train, y_train) #bat dau train
+#print("Hoi quy")
+print("Giai thuat hoi quy tuyen tinh Linear Regression: ")
+print(linearRegressor)
 y_predicted = linearRegressor.predict(x_test) #du doan
 mse = mean_squared_error(y_test, y_predicted) # binh phuong sai so
 r = r2_score(y_test, y_predicted) #so diem chua nhan voi 100
 from math import sqrt
 #from sklearn.metrics import accuracy_score
 #print("Accuracy is", accuracy_score(y_test,y_pred)*100)
-print("Giai thuat hoi quy tuyen tinh Linear Regression: ")
+
 print("Binh phuong sai so MSE (Mean Squared Error): ",mse," RMSE",sqrt(mse))
 print("Do chinh xac la: ",r)
 print("---------------- ----------------- ----------------- \n \n")
@@ -52,10 +56,13 @@ regressor = DecisionTreeRegressor(max_depth=10,random_state = 0,min_samples_leaf
 #from sklearn.tree import DecisionTreeClassifier
 #regressor = DecisionTreeClassifier(criterion = "entropy", random_state = 0, max_depth=18,min_samples_leaf=5)
 regressor.fit(x_train, y_train)
+#print("Cay quyet dinh: ")
+print("Giai thuat cay quyet dinh Decision Tree: ")
+print(regressor)
 y_predicted_2 = regressor.predict(x_test)
 mse2 = mean_squared_error(y_test, y_predicted_2)
 r2 = r2_score(y_test, y_predicted_2)
-print("Giai thuat cay quyet dinh Decision Tree: ")
+
 print("Binh phuong sai so MSE (Mean Squared Error): ",mse2," RMSE",sqrt(mse2))
 print("Do chinh xac la: ",r2)
 plt.title("Cây quyết định ")
