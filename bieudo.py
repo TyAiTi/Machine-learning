@@ -1,18 +1,24 @@
 import pandas as pd
 import numpy as np
-dt_hour = pd.read_csv("hour.csv")
-#print(dt_hour)
-dt_hour.info()
-#nhan=np.unique(dt_hour.cnt)
-#X=dt_hour.iloc[:,[8,9,10,11,12,13,14]]
-X = dt_hour.iloc[:,10:16]#16
-Y = dt_hour.cnt
+dt_date = pd.read_csv("hour.csv")
+#print(dt_date)
+dt_date.info()
+print("-------------- ------------ ------------- ----------------- \n")
+#nhan=np.unique(dt_date.cnt)
+#X=dt_date.iloc[:,[8,9,10,11,12,13,14]]
+#X = dt_date.iloc[:,10:16]#16
+X = dt_date.drop(columns=['dteday','instant','holiday','workingday','weathersit','yr'])
+Y = dt_date.cnt
 
 #bieu do hinh tron
 import matplotlib.pyplot as plt
-tongsoxe = sum(dt_hour.cnt)
-xedk = sum(dt_hour.registered)
-xenodk = sum(dt_hour.casual)
+tongsoxe = sum(dt_date.cnt)
+xedk = sum(dt_date.registered)
+xenodk = sum(dt_date.casual)
+print("Tong so xe: ",tongsoxe)
+print("Xe da dang ki: ",xedk)
+print("Xe chua dang ki: ",xenodk)
+
 label = ["Xe đã dk", "Xe chưa dk"]
 market = [xedk,xenodk]
 colors = ['yellow','red']
@@ -23,59 +29,62 @@ plt.legend(title="Biểu đồ xe")
 plt.show()
 
 #in cnt month =1 https://kipalog.com/posts/Huong-dan-su-dung-thu-vien-pandas-trong-python
-nodk1 = sum(dt_hour[dt_hour['mnth']==1][['mnth','casual']].casual)#người thuê xe tháng 1 chưa đăng kí
-nodk2 = sum(dt_hour[dt_hour['mnth']==2][['mnth','casual']].casual)#người thuê xe tháng 2 chưa đăng kí
-nodk3 = sum(dt_hour[dt_hour['mnth']==3][['mnth','casual']].casual)#người thuê xe tháng 3 chưa đăng kí
-nodk4 = sum(dt_hour[dt_hour['mnth']==4][['mnth','casual']].casual)#người thuê xe tháng 4 chưa đăng kí
-nodk5 = sum(dt_hour[dt_hour['mnth']==5][['mnth','casual']].casual)#người thuê xe tháng 5 chưa đăng kí
-nodk6 = sum(dt_hour[dt_hour['mnth']==6][['mnth','casual']].casual)#người thuê xe tháng 6 chưa đăng kí
-nodk7 = sum(dt_hour[dt_hour['mnth']==7][['mnth','casual']].casual)#người thuê xe tháng 7 chưa đăng kí
-nodk8 = sum(dt_hour[dt_hour['mnth']==8][['mnth','casual']].casual)#người thuê xe tháng 8 chưa đăng kí
-nodk9 = sum(dt_hour[dt_hour['mnth']==9][['mnth','casual']].casual)#người thuê xe tháng 9 chưa đăng kí
-nodk10 = sum(dt_hour[dt_hour['mnth']==10][['mnth','casual']].casual)#người thuê xe tháng 10 chưa đăng kí
-nodk11 = sum(dt_hour[dt_hour['mnth']==11][['mnth','casual']].casual)#người thuê xe tháng 11 chưa đăng kí
-nodk12 = sum(dt_hour[dt_hour['mnth']==12][['mnth','casual']].casual)#người thuê xe tháng 12 chưa đăng kí
+nodk1 = sum(dt_date[dt_date['mnth']==1][['mnth','casual']].casual)#người thuê xe tháng 1 chưa đăng kí
+nodk2 = sum(dt_date[dt_date['mnth']==2][['mnth','casual']].casual)#người thuê xe tháng 2 chưa đăng kí
+nodk3 = sum(dt_date[dt_date['mnth']==3][['mnth','casual']].casual)#người thuê xe tháng 3 chưa đăng kí
+nodk4 = sum(dt_date[dt_date['mnth']==4][['mnth','casual']].casual)#người thuê xe tháng 4 chưa đăng kí
+nodk5 = sum(dt_date[dt_date['mnth']==5][['mnth','casual']].casual)#người thuê xe tháng 5 chưa đăng kí
+nodk6 = sum(dt_date[dt_date['mnth']==6][['mnth','casual']].casual)#người thuê xe tháng 6 chưa đăng kí
+nodk7 = sum(dt_date[dt_date['mnth']==7][['mnth','casual']].casual)#người thuê xe tháng 7 chưa đăng kí
+nodk8 = sum(dt_date[dt_date['mnth']==8][['mnth','casual']].casual)#người thuê xe tháng 8 chưa đăng kí
+nodk9 = sum(dt_date[dt_date['mnth']==9][['mnth','casual']].casual)#người thuê xe tháng 9 chưa đăng kí
+nodk10 = sum(dt_date[dt_date['mnth']==10][['mnth','casual']].casual)#người thuê xe tháng 10 chưa đăng kí
+nodk11 = sum(dt_date[dt_date['mnth']==11][['mnth','casual']].casual)#người thuê xe tháng 11 chưa đăng kí
+nodk12 = sum(dt_date[dt_date['mnth']==12][['mnth','casual']].casual)#người thuê xe tháng 12 chưa đăng kí
 
-dk1 = sum(dt_hour[dt_hour['mnth']==1][['mnth','registered']].registered)#người thuê xe tháng 1 đã đăng kí
-dk2 = sum(dt_hour[dt_hour['mnth']==2][['mnth','registered']].registered)#người thuê xe tháng 2 đã đăng kí
-dk3 = sum(dt_hour[dt_hour['mnth']==3][['mnth','registered']].registered)#người thuê xe tháng 3 đã đăng kí
-dk4 = sum(dt_hour[dt_hour['mnth']==4][['mnth','registered']].registered)#người thuê xe tháng 4 đã đăng kí
-dk5 = sum(dt_hour[dt_hour['mnth']==5][['mnth','registered']].registered)#người thuê xe tháng 5 đã đăng kí
-dk6 = sum(dt_hour[dt_hour['mnth']==6][['mnth','registered']].registered)#người thuê xe tháng 6 đã đăng kí
-dk7 = sum(dt_hour[dt_hour['mnth']==7][['mnth','registered']].registered)#người thuê xe tháng 7 đã đăng kí
-dk8 = sum(dt_hour[dt_hour['mnth']==8][['mnth','registered']].registered)#người thuê xe tháng 8 đã đăng kí
-dk9 = sum(dt_hour[dt_hour['mnth']==9][['mnth','registered']].registered)#người thuê xe tháng 9 đã đăng kí
-dk10 = sum(dt_hour[dt_hour['mnth']==10][['mnth','registered']].registered)#người thuê xe tháng 10 đã đăng kí
-dk11 = sum(dt_hour[dt_hour['mnth']==11][['mnth','registered']].registered)#người thuê xe tháng 11 đã đăng kí
-dk12 = sum(dt_hour[dt_hour['mnth']==12][['mnth','registered']].registered)#người thuê xe tháng 12 đã đăng kí
-
-
-mon1 =sum(dt_hour[dt_hour['mnth']==1][['mnth','cnt']].cnt) #liet ke thang 1 va cnt
-mon2 =sum(dt_hour[dt_hour['mnth']==2][['mnth','cnt']].cnt) #liet ke thang 2 va cnt
-mon3 =sum(dt_hour[dt_hour['mnth']==3][['mnth','cnt']].cnt) #liet ke thang 3 va cnt
-mon4 =sum(dt_hour[dt_hour['mnth']==4][['mnth','cnt']].cnt) #liet ke thang 4 va cnt
-mon5 =sum(dt_hour[dt_hour['mnth']==5][['mnth','cnt']].cnt) #liet ke thang 5 va cnt
-mon6 =sum(dt_hour[dt_hour['mnth']==6][['mnth','cnt']].cnt) #liet ke thang 6 va cnt
-mon7 =sum(dt_hour[dt_hour['mnth']==7][['mnth','cnt']].cnt) #liet ke thang 7 va cnt
-mon8 =sum(dt_hour[dt_hour['mnth']==8][['mnth','cnt']].cnt) #liet ke thang 8 va cnt
-mon9 =sum(dt_hour[dt_hour['mnth']==9][['mnth','cnt']].cnt) #liet ke thang 9 va cnt
-mon10 =sum(dt_hour[dt_hour['mnth']==10][['mnth','cnt']].cnt) #liet ke thang 10 va cnt
-mon11 =sum(dt_hour[dt_hour['mnth']==11][['mnth','cnt']].cnt) #liet ke thang 11 va cnt
-mon12 =sum(dt_hour[dt_hour['mnth']==12][['mnth','cnt']].cnt) #liet ke thang 12 va cnt
+dk1 = sum(dt_date[dt_date['mnth']==1][['mnth','registered']].registered)#người thuê xe tháng 1 đã đăng kí
+dk2 = sum(dt_date[dt_date['mnth']==2][['mnth','registered']].registered)#người thuê xe tháng 2 đã đăng kí
+dk3 = sum(dt_date[dt_date['mnth']==3][['mnth','registered']].registered)#người thuê xe tháng 3 đã đăng kí
+dk4 = sum(dt_date[dt_date['mnth']==4][['mnth','registered']].registered)#người thuê xe tháng 4 đã đăng kí
+dk5 = sum(dt_date[dt_date['mnth']==5][['mnth','registered']].registered)#người thuê xe tháng 5 đã đăng kí
+dk6 = sum(dt_date[dt_date['mnth']==6][['mnth','registered']].registered)#người thuê xe tháng 6 đã đăng kí
+dk7 = sum(dt_date[dt_date['mnth']==7][['mnth','registered']].registered)#người thuê xe tháng 7 đã đăng kí
+dk8 = sum(dt_date[dt_date['mnth']==8][['mnth','registered']].registered)#người thuê xe tháng 8 đã đăng kí
+dk9 = sum(dt_date[dt_date['mnth']==9][['mnth','registered']].registered)#người thuê xe tháng 9 đã đăng kí
+dk10 = sum(dt_date[dt_date['mnth']==10][['mnth','registered']].registered)#người thuê xe tháng 10 đã đăng kí
+dk11 = sum(dt_date[dt_date['mnth']==11][['mnth','registered']].registered)#người thuê xe tháng 11 đã đăng kí
+dk12 = sum(dt_date[dt_date['mnth']==12][['mnth','registered']].registered)#người thuê xe tháng 12 đã đăng kí
 
 
-print("mon1 = ",mon1," tong= ",nodk1,"+ ",nodk1," = ", nodk1+dk1)
-print("mon1 = ",mon2," tong= ",dk2,"+ ",nodk2," = ", nodk2+dk2)
-print("mon1 = ",mon3," tong= ",dk3,"+ ",nodk3," = ", nodk3+dk3)
-print("mon1 = ",mon4," tong= ",dk4,"+ ",nodk4," = ", nodk4+dk4)
-print("mon1 = ",mon5," tong= ",dk5,"+ ",nodk5," = ", nodk5+dk5)
-print("mon1 = ",mon6," tong= ",dk6,"+ ",nodk6," = ", nodk6+dk6)
-print("mon1 = ",mon7," tong= ",dk7,"+ ",nodk7," = ", nodk7+dk7)
-print("mon1 = ",mon8," tong= ",dk8,"+ ",nodk8," = ", nodk8+dk8)
-print("mon1 = ",mon9," tong= ",dk9,"+ ",nodk9," = ", nodk9+dk9)
-print("mon1 = ",mon10," tong= ",dk10,"+ ",nodk10," = ", nodk10+dk10)
-print("mon1 = ",mon11," tong= ",dk11,"+ ",nodk11," = ", nodk11+dk11)
-print("mon1 = ",mon12," tong= ",dk12,"+ ",nodk12," = ", nodk12+dk12)
+mon1 =sum(dt_date[dt_date['mnth']==1][['mnth','cnt']].cnt) #liet ke thang 1 va cnt
+mon2 =sum(dt_date[dt_date['mnth']==2][['mnth','cnt']].cnt) #liet ke thang 2 va cnt
+mon3 =sum(dt_date[dt_date['mnth']==3][['mnth','cnt']].cnt) #liet ke thang 3 va cnt
+mon4 =sum(dt_date[dt_date['mnth']==4][['mnth','cnt']].cnt) #liet ke thang 4 va cnt
+mon5 =sum(dt_date[dt_date['mnth']==5][['mnth','cnt']].cnt) #liet ke thang 5 va cnt
+mon6 =sum(dt_date[dt_date['mnth']==6][['mnth','cnt']].cnt) #liet ke thang 6 va cnt
+mon7 =sum(dt_date[dt_date['mnth']==7][['mnth','cnt']].cnt) #liet ke thang 7 va cnt
+mon8 =sum(dt_date[dt_date['mnth']==8][['mnth','cnt']].cnt) #liet ke thang 8 va cnt
+mon9 =sum(dt_date[dt_date['mnth']==9][['mnth','cnt']].cnt) #liet ke thang 9 va cnt
+mon10 =sum(dt_date[dt_date['mnth']==10][['mnth','cnt']].cnt) #liet ke thang 10 va cnt
+mon11 =sum(dt_date[dt_date['mnth']==11][['mnth','cnt']].cnt) #liet ke thang 11 va cnt
+mon12 =sum(dt_date[dt_date['mnth']==12][['mnth','cnt']].cnt) #liet ke thang 12 va cnt
+
+
+#print("Thang 1 thap nhat = ",mon1," tong= ",nodk1,"+ ",nodk1," = ", nodk1+dk1)
+print("Thang 1 it nhat = ",mon1)
+#print("mon2 = ",mon2," tong= ",dk2,"+ ",nodk2," = ", nodk2+dk2)
+#print("mon3 = ",mon3," tong= ",dk3,"+ ",nodk3," = ", nodk3+dk3)
+#print("mon4 = ",mon4," tong= ",dk4,"+ ",nodk4," = ", nodk4+dk4)
+#print("mon5 = ",mon5," tong= ",dk5,"+ ",nodk5," = ", nodk5+dk5)
+#print("mon6 = ",mon6," tong= ",dk6,"+ ",nodk6," = ", nodk6+dk6)
+#print("mon7 = ",mon7," tong= ",dk7,"+ ",nodk7," = ", nodk7+dk7)
+#print("Thang 8 nhieu nhat = ",mon8," tong= ",dk8,"+ ",nodk8," = ", nodk8+dk8)
+print("Thang 8 nhieu nhat = ",mon8)
+#print("mon9 = ",mon9," tong= ",dk9,"+ ",nodk9," = ", nodk9+dk9)
+#print("mon10 = ",mon10," tong= ",dk10,"+ ",nodk10," = ", nodk10+dk10)
+#print("mon11 = ",mon11," tong= ",dk11,"+ ",nodk11," = ", nodk11+dk11)
+#print("mon12 = ",mon12," tong= ",dk12,"+ ",nodk12," = ", nodk12+dk12)
+
 #https://viblo.asia/p/gioi-thieu-ve-matplotlib-mot-thu-vien-rat-huu-ich-cua-python-dung-de-ve-do-thi-yMnKMN6gZ7P
 
 #bieu do trong tung thang
@@ -98,36 +107,42 @@ plt.show()
 
 
 #bieu do ngay trong tuan
-t2nodk = sum(dt_hour[dt_hour['weekday']==1][['weekday','casual']].casual)
-t3nodk = sum(dt_hour[dt_hour['weekday']==2][['weekday','casual']].casual)
-t4nodk = sum(dt_hour[dt_hour['weekday']==3][['weekday','casual']].casual)
-t5nodk = sum(dt_hour[dt_hour['weekday']==4][['weekday','casual']].casual)
-t6nodk = sum(dt_hour[dt_hour['weekday']==5][['weekday','casual']].casual)
-t7nodk = sum(dt_hour[dt_hour['weekday']==6][['weekday','casual']].casual)
-t8nodk = sum(dt_hour[dt_hour['weekday']==0][['weekday','casual']].casual)
+t2nodk = sum(dt_date[dt_date['weekday']==1][['weekday','casual']].casual)
+t3nodk = sum(dt_date[dt_date['weekday']==2][['weekday','casual']].casual)
+t4nodk = sum(dt_date[dt_date['weekday']==3][['weekday','casual']].casual)
+t5nodk = sum(dt_date[dt_date['weekday']==4][['weekday','casual']].casual)
+t6nodk = sum(dt_date[dt_date['weekday']==5][['weekday','casual']].casual)
+t7nodk = sum(dt_date[dt_date['weekday']==6][['weekday','casual']].casual)
+t8nodk = sum(dt_date[dt_date['weekday']==0][['weekday','casual']].casual)
 
-t2dk = sum(dt_hour[dt_hour['weekday']==1][['weekday','registered']].registered)
-t3dk = sum(dt_hour[dt_hour['weekday']==2][['weekday','registered']].registered)
-t4dk = sum(dt_hour[dt_hour['weekday']==3][['weekday','registered']].registered)
-t5dk = sum(dt_hour[dt_hour['weekday']==4][['weekday','registered']].registered)
-t6dk = sum(dt_hour[dt_hour['weekday']==5][['weekday','registered']].registered)
-t7dk = sum(dt_hour[dt_hour['weekday']==6][['weekday','registered']].registered)
-t8dk = sum(dt_hour[dt_hour['weekday']==0][['weekday','registered']].registered)
+t2dk = sum(dt_date[dt_date['weekday']==1][['weekday','registered']].registered)
+t3dk = sum(dt_date[dt_date['weekday']==2][['weekday','registered']].registered)
+t4dk = sum(dt_date[dt_date['weekday']==3][['weekday','registered']].registered)
+t5dk = sum(dt_date[dt_date['weekday']==4][['weekday','registered']].registered)
+t6dk = sum(dt_date[dt_date['weekday']==5][['weekday','registered']].registered)
+t7dk = sum(dt_date[dt_date['weekday']==6][['weekday','registered']].registered)
+t8dk = sum(dt_date[dt_date['weekday']==0][['weekday','registered']].registered)
 
-print(t2nodk)
-print(t2dk)
-t2 =sum(dt_hour[dt_hour['weekday']==1][['weekday','cnt']].cnt)
-print(t2)
+#print(t2nodk)
+#print(t2dk)
+t2 =sum(dt_date[dt_date['weekday']==1][['weekday','cnt']].cnt)
+t3 =sum(dt_date[dt_date['weekday']==2][['weekday','cnt']].cnt)
+t4 =sum(dt_date[dt_date['weekday']==3][['weekday','cnt']].cnt)
+t5 =sum(dt_date[dt_date['weekday']==4][['weekday','cnt']].cnt)
+t6 =sum(dt_date[dt_date['weekday']==5][['weekday','cnt']].cnt)
+t7 =sum(dt_date[dt_date['weekday']==6][['weekday','cnt']].cnt)
+t8 =sum(dt_date[dt_date['weekday']==0][['weekday','cnt']].cnt)
+thu=np.unique(dt_date.weekday)#[0 1 2 3 4 5 6] cn hai ba tu ...
+#print("thu 2",t2)
+#print("thu 3",t3)
+#print("thu 4",t4)
+#print("thu 5",t5)
+print("Thu 6 nhieu nhat: ",t6)
+#print("thu 7",t7)
+print("Chu nhat it nhat: ",t8)
 
-t3 =sum(dt_hour[dt_hour['weekday']==2][['weekday','cnt']].cnt)
-t4 =sum(dt_hour[dt_hour['weekday']==3][['weekday','cnt']].cnt)
-t5 =sum(dt_hour[dt_hour['weekday']==4][['weekday','cnt']].cnt)
-t6 =sum(dt_hour[dt_hour['weekday']==5][['weekday','cnt']].cnt)
-t7 =sum(dt_hour[dt_hour['weekday']==6][['weekday','cnt']].cnt)
-t8 =sum(dt_hour[dt_hour['weekday']==0][['weekday','cnt']].cnt)
-thu=np.unique(dt_hour.weekday)#[0 1 2 3 4 5 6] cn hai ba tu ...
 
-print("Thu 2 = ",t2," la tong cua ",t2nodk," + ",t2dk," la: ", t2nodk+t2dk)
+#print("Thu 2 = ",t2," la tong cua ",t2nodk," + ",t2dk," la: ", t2nodk+t2dk)
 
 
 thu = ["2", "3", "4", "5", "6", "7", "CN"]
@@ -147,26 +162,28 @@ plt.legend(loc='best')
 plt.show()
 
 #bieu do theo mua xuan ha thu dong
-xuan =sum(dt_hour[dt_hour['season']==1][['season','cnt']].cnt)
-ha =sum(dt_hour[dt_hour['season']==2][['season','cnt']].cnt)
-thu =sum(dt_hour[dt_hour['season']==3][['season','cnt']].cnt)
-dong =sum(dt_hour[dt_hour['season']==4][['season','cnt']].cnt)
-#print(np.unique(dt_hour.season))
+xuan =sum(dt_date[dt_date['season']==1][['season','cnt']].cnt)
+ha =sum(dt_date[dt_date['season']==2][['season','cnt']].cnt)
+thu =sum(dt_date[dt_date['season']==3][['season','cnt']].cnt)
+dong =sum(dt_date[dt_date['season']==4][['season','cnt']].cnt)
+#print(np.unique(dt_date.season))
 
-mnodk1 =  sum(dt_hour[dt_hour['season']==1][['season','casual']].casual)
-mnodk2 =  sum(dt_hour[dt_hour['season']==2][['season','casual']].casual)
-mnodk3 =  sum(dt_hour[dt_hour['season']==3][['season','casual']].casual)
-mnodk4 =  sum(dt_hour[dt_hour['season']==4][['season','casual']].casual)
+mnodk1 =  sum(dt_date[dt_date['season']==1][['season','casual']].casual)
+mnodk2 =  sum(dt_date[dt_date['season']==2][['season','casual']].casual)
+mnodk3 =  sum(dt_date[dt_date['season']==3][['season','casual']].casual)
+mnodk4 =  sum(dt_date[dt_date['season']==4][['season','casual']].casual)
 
-mdk1 = sum(dt_hour[dt_hour['season']==1][['season','registered']].registered)
-mdk2 = sum(dt_hour[dt_hour['season']==2][['season','registered']].registered)
-mdk3 = sum(dt_hour[dt_hour['season']==3][['season','registered']].registered)
-mdk4 = sum(dt_hour[dt_hour['season']==4][['season','registered']].registered)
-print(xuan," ", mnodk1," ",mdk1)
-print(ha," ", mnodk2," ",mdk2)
-print(thu," ", mnodk3," ",mdk3)
-print(dong," ", mnodk4," ",mdk4)
+mdk1 = sum(dt_date[dt_date['season']==1][['season','registered']].registered)
+mdk2 = sum(dt_date[dt_date['season']==2][['season','registered']].registered)
+mdk3 = sum(dt_date[dt_date['season']==3][['season','registered']].registered)
+mdk4 = sum(dt_date[dt_date['season']==4][['season','registered']].registered)
+#print(xuan," ", mnodk1," ",mdk1)
+#print(ha," ", mnodk2," ",mdk2)
+#print(thu," ", mnodk3," ",mdk3)
+#print(dong," ", mnodk4," ",mdk4)
 
+print("Mua thu nhieu nhat: ", thu)
+print("Mua xuan it nhat: ", xuan)
 mua = ["Xuân", "Hạ", "Thu", "Đông"]
 soxem = [xuan,ha,thu,dong]
 mnodk = [mnodk1,mnodk2,mnodk3,mnodk4]
