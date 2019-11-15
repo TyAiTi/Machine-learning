@@ -1,4 +1,5 @@
 #https://www.youtube.com/watch?v=ic3XgjY2VDY
+import time
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -15,16 +16,13 @@ x=dt_date.drop(['cnt',],axis=1) # x là phải bỏ cột nhãn ra
 y=dt_date['cnt'] #là nhãn
 #x = preprocessing.normalize(x)# tiền xử lý để chuẩn hóa
 print("------------ ---------------- --------------- \n")
-#for i in range(0,13): #max chỉ có 13 cột thôi (bỏ dteday, instant, cnt)
-#    print(x[0][i])
-
-#print(type(x))
 
 
 from sklearn.model_selection import train_test_split  #dùng hold-out phân tách dữ liệu làm thành bộ training mô hình
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.3, random_state = 0)# 2 tập độc lập 1/3 là test
 
-
+tgkt=0#mac dinh thoi gian ket thuc
+start = time.time()#bat dau
 from sklearn.linear_model import LinearRegression #Hoi quy tuyen tinh Linear Regression
 from sklearn.metrics import mean_squared_error #binh phuong sai so loi erro
 
@@ -43,6 +41,8 @@ from math import sqrt
 
 print("Binh phuong sai so MSE (Mean Squared Error): ",mse," RMSE",sqrt(mse))
 print("Do chinh xac la: ",r)
+tgkt=time.time()-start
+print("Thoi gian thuc thi",tgkt)
 print("---------------- ----------------- ----------------- \n \n")
 plt.title("Hồi quy tuyến tính")
 plt.scatter(y_test,y_predicted)
@@ -51,6 +51,9 @@ plt.ylabel("Predict")
 plt.grid(True)
 plt.show()
 
+
+tgkt=0#mac dinh thoi gian ket thuc
+start = time.time()#bat dau
 from sklearn.tree import DecisionTreeRegressor #Cay quyet dinh decision tree
 regressor = DecisionTreeRegressor(max_depth=10,random_state = 0,min_samples_leaf=5)
 #from sklearn.tree import DecisionTreeClassifier
@@ -65,6 +68,8 @@ r2 = r2_score(y_test, y_predicted_2)
 
 print("Binh phuong sai so MSE (Mean Squared Error): ",mse2," RMSE",sqrt(mse2))
 print("Do chinh xac la: ",r2)
+tgkt=time.time()-start
+print("Thoi gian thuc thi",tgkt)
 plt.title("Cây quyết định ")
 plt.scatter(y_test,y_predicted_2)
 plt.xlabel("Test")
