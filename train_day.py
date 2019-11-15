@@ -4,12 +4,14 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 dt_date = pd.read_csv("day.csv") #đọc file .csv
-#print(dt_date.head(5))
+print(dt_date.head(10))
 #dt_date = dt_date.drop(columns=['dteday','instant','yr','holiday','workingday'])# bỏ cột ngày và thứ tự không cần thiết
 #print(dt_date.head(5))
 dt_date = dt_date.drop(columns=['instant','dteday','season','yr','mnth','holiday','weekday','workingday','weathersit','casual','registered'])
+
 print("Thuoc tinh va nhan can thiet la: ")
 print(dt_date.head(10))
+#print(dt_date)
 from sklearn import preprocessing #sử dụng sklearn
 x=dt_date.drop(['cnt',],axis=1) # x là phải bỏ cột nhãn ra
 #print(x.head(5))
@@ -19,86 +21,46 @@ y = np.array(y)
 #x = preprocessing.normalize(x)# tiền xử lý để chuẩn hóa
 print("------------ ---------------- --------------- \n")
 
-
 from sklearn.model_selection import train_test_split  #dùng hold-out phân tách dữ liệu làm thành bộ training mô hình
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.3, random_state = 0)# 2 tập độc lập 1/3 là test
-
-tgkt=0#mac dinh thoi gian ket thuc
-start = time.time()#bat dau
+# 2 tập độc lập 1/3 là test
 from sklearn.linear_model import LinearRegression #Hoi quy tuyen tinh Linear Regression
-from sklearn.metrics import mean_squared_error #binh phuong sai so loi erro
-
-from sklearn.metrics import r2_score #diem
-linearRegressor = LinearRegression()
-linearRegressor.fit(x_train, y_train) #bat dau train
-#print("Hoi quy")
-print("Giai thuat hoi quy tuyen tinh Linear Regression: ")
-print(linearRegressor)
-y_predicted = linearRegressor.predict(x_test) #du doan
-
-#prediction = linearRegressor.predict(x_test)#vong lap xem thu
-for x in range(10):
-    print("Du doan : ",y_predicted[x], "Thuc te: ",y_test[x])
-mse = mean_squared_error(y_test, y_predicted) # binh phuong sai so
-r = r2_score(y_test, y_predicted) #so diem chua nhan voi 100
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import r2_score
+from sklearn.tree import DecisionTreeRegressor
 from math import sqrt
-#from sklearn.metrics import accuracy_score
-#print("Accuracy is", accuracy_score(y_test,y_pred)*100)
+cong = 0;
+tongL = 0 #tong 10 lan lap hoi quy
+tongD = 0 #tong 10 lan lap cay quyet dinh
 
-print("Binh phuong sai so MSE (Mean Squared Error): ",mse," RMSE",sqrt(mse))
-print("Do chinh xac la: ",r)
-tgkt=time.time()-start
-print("Thoi gian thuc thi",tgkt)
-print("---------------- ----------------- ----------------- \n \n")
-plt.title("Hồi quy tuyến tính")
-plt.scatter(y_test,y_predicted)
-plt.xlabel("Test")
-plt.ylabel("Predict")
-plt.grid(True)
-plt.show()
+rmse1 = 0
+rmse2 = 0
+print("Lan lap thu: " ,"LinearRegressor: ","DecisionTreeRegressor: ")
+for i in range(1,11):
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.3, random_state = cong)
+    cong = cong +5
+    #Hoi quy
+    linearRegressor = LinearRegression()
+    linearRegressor.fit(x_train, y_train)
+    y_predicted = linearRegressor.predict(x_test)
+    mseL = mean_squared_error(y_test, y_predicted)
+    rmseL = sqrt(mseL) #rmse
+    r = r2_score(y_test, y_predicted) #do chinh xac
+    #print(" ",mse," ",sqrt(mse), " ",r*100)
+    #cay quyet dinh
+    regressor = DecisionTreeRegressor(max_depth=10,min_samples_leaf=5)
+    regressor.fit(x_train, y_train)
+    y_predicted_2 = regressor.predict(x_test)
+    mseD = mean_squared_error(y_test, y_predicted_2)
+    rmseD = sqrt(mseD)#rmse
+    r2 = r2_score(y_test, y_predicted_2)
 
-
-tgkt=0#mac dinh thoi gian ket thuc
-start = time.time()#bat dau
-from sklearn.tree import DecisionTreeRegressor #Cay quyet dinh decision tree
-regressor = DecisionTreeRegressor(max_depth=10,random_state = 0,min_samples_leaf=5)
-#from sklearn.tree import DecisionTreeClassifier
-#regressor = DecisionTreeClassifier(criterion = "entropy", random_state = 0, max_depth=18,min_samples_leaf=5)
-regressor.fit(x_train, y_train)
-#print("Cay quyet dinh: ")
-print("Giai thuat cay quyet dinh Decision Tree: ")
-print(regressor)
-y_predicted_2 = regressor.predict(x_test)
-for x in range(10):
-    print("Du doan : ",y_predicted_2[x], "Thuc te: ",y_test[x])
-mse2 = mean_squared_error(y_test, y_predicted_2)
-r2 = r2_score(y_test, y_predicted_2)
-
-print("Binh phuong sai so MSE (Mean Squared Error): ",mse2," RMSE",sqrt(mse2))
-print("Do chinh xac la: ",r2)
-tgkt=time.time()-start
-print("Thoi gian thuc thi",tgkt)
-plt.title("Cây quyết định ")
-plt.scatter(y_test,y_predicted_2)
-plt.xlabel("Test")
-plt.ylabel("Predict")
-plt.grid(True)
-plt.show()
-
-from prettytable import PrettyTable#tao bang
-table = PrettyTable()
-table.field_names = ["Giai Thuat", "MSE","RMSE" ,"Do chinh xac"]
-
-models = [
-    LinearRegression(),
-    DecisionTreeRegressor(max_depth=18,random_state = 0)
-]
-
-for model in models:
-    model.fit(x_train, y_train)
-    y_res = model.predict(x_test)
-    mse_b = mean_squared_error(y_test, y_res)
-    score_b = model.score(x_test, y_test)*100
-    rmse_b = np.sqrt(mse_b)
-    table.add_row([type(model).__name__, format(mse_b, '.2f'),format(rmse_b, '.2f'),format(score_b, '.2f')])
-print(table)
+    rmse1 = rmse1 + rmseD
+    rmse2 = rmse2 + rmseL
+    tongL = tongL + r*100
+    tongD = tongD + r2*100
+    print("        ",i,"",r*100," ",r2*100)
+    #print("Kiem tra RMSE_L ",rmseL," RMSE_D ",rmseD)
+print("\n-------------------------------------------")
+print("Trung binh 10 lan lap")
+print("LinearRegressor       ",tongL/10, "RMSE: ",rmse1/10)
+print("DecisionTreeRegressor ",tongD/10, "RMSE: ",rmse2/10)
